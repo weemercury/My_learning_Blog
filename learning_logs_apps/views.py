@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from .models import Topic
+from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 
 # Create your views here.
@@ -56,3 +56,21 @@ def new_entry(request, topic_id):
     # Вывести пустую или недействительную форму.
     context = {'topic': topic, 'form': form}
     return render(request, 'learning_logs_apps/new_entry.html', context)
+
+def edit_entry(request, entry_id):
+    """Редактирует существующую запись."""
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
+    
+    if request.method != 'POST':
+        # Исходный запрос, создается пустая форма.
+        form = EntryForm(instance=entry)
+    else:
+        # Отправка данных POST - обработать данные.
+        form = EntryForm(instance=entry, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('learning_logs_apps:topic', topic_id=topic.id)
+    
+    context = {'entry': entry, 'topic': topic, 'form': form}
+    return render(request, 'learning_logs_apps/edit_entry.html', context)
