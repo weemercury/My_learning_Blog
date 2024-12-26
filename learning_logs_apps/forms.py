@@ -10,7 +10,7 @@ class TopicForm(forms.ModelForm):
         
 class EntryForm(forms.ModelForm):
     class Meta:
-        model = Entry()
+        model = Entry
         fields = ['text']
         labels = {'text': 'Entry:'}
         wiggets = {'text': forms.Textarea(attrs={'cols': 80})}
