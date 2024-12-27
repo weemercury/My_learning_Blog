@@ -1,5 +1,15 @@
 {% extends "learning_logs_apps/base.html" %}
+{% load bootstrap4 %}
 
-{% block content %}
-    <p>You have been logged out. Thank you for visiting!</p>
-{% endblock content%}
+{% block page_header %}
+  <div class="jumbotron">
+    <h1 class="display-4">
+      Вы вышли из системы!
+    </h1>
+
+    <p class="lead">
+        Благодарим Вас за посещение нашего сайта!
+      </p>
+
+  </div>
+{% endblock page_header %}
