@@ -1,27 +1,31 @@
 {% extends "learning_logs_apps/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+  <h3>{{ topic }}</h3>
+{% endblock page_header %}
 
 {% block content %}
 
-<p>Topic: {{ topic }}</p>
+  <p>
+    <a href="{% url 'learning_logs_apps:new_entry' topic.id %}">Добавить новую запись &raquo;</a>
+  </p>
 
-<p>Entries:</p>
+  {% for entry in entries %}
+    <div class="card mb-3">
+      <h4 class="card-header">
+        {{ entry.date_added|date:'M d, Y H:i' }}
+        <small>
+          <a href="{% url 'learning_logs_apps:edit_entry' entry.id %}">Редактировать запись:</a>
+        </small>
+      </h4>
+      <div class="card-body">
+        {{ entry.text|linebreaks }}
+      </div>
+    </div>
 
-<p>
-  <a href="{% url 'learning_logs_apps:new_entry' topic.id %}">add new entry</a>
-</p>
-
-<ul>
-    {% for entry in entries %}
-      <li>
-        <p>{{ entry.date_added|date:'M d, Y H:i' }}</p>
-        <p>{{ entry.text|linebreaks }}</p>
-        <p>
-          <a href="{% url 'learning_logs_apps:edit_entry' entry.id %}">Edit Entry</a>
-      </p>
-      </li>
-    {% empty %}
-      <li>There are no entries for this topic yet.</li>
-    {% endfor %}
-</ul>
+  {% empty %}
+    <li>Добавьте свою первую запись по изучаемой теме...</li>
+  {% endfor %}
 
 {% endblock content%}
