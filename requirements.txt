@@ -3,6 +3,8 @@ beautifulsoup4==4.12.3
 Django==5.1.4
 django-bootstrap4==24.4
 django-bootstrap5==24.3
+python-dotenv==1.0.1
 soupsieve==2.6
 sqlparse==0.5.3
 typing_extensions==4.12.2
+mysqlclient==2.2.4
